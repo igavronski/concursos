@@ -1,0 +1,31 @@
+name: Monitor INLABS - Notificacao Nativa
+
+on:
+  schedule:
+    # Executa de segunda a sexta as 08:00 UTC (05:00 no horario de Brasilia)
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch: # Permite disparar manualmente no painel do GitHub
+
+jobs:
+  run-monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: |
+          pip install requests
+
+      - name: Executar script e exibir prints no console
+        env:
+          USUARIO: ${{ secrets.INLABS_USER }}
+          SENHA: ${{ secrets.INLABS_PASS }}
+        run: |
+          python monitor.py -y -u "$USUARIO" -p "$SENHA"
