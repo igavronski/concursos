@@ -28,4 +28,4 @@ jobs:
           USUARIO: ${{ secrets.INLABS_USER }}
           SENHA: ${{ secrets.INLABS_PASS }}
         run: |
-          python monitor.py -y -u "$USUARIO" -p "$SENHA"
+          python varrer_dou.py -y -u "$USUARIO" -p "$SENHA"
